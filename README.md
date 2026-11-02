@@ -177,3 +177,20 @@ Build the product if the 50 households show roughly:
 - Nous's recent scale is unusually strong evidence that the model works.
 - Lithuania already has all the scattered comparison data needed to build a first version.
 - The missing piece is an **agent that acts for the household and stays with it over time**: it monitors, switches, cancels and re-checks before renewal. Lithuania has comparison tools, but nothing that does this.
+
+---
+
+## Repository structure
+
+| Directory | Contents |
+|-----------|----------|
+| `frontend/` | Next.js (App Router), TypeScript, Tailwind CSS v4, shadcn/ui |
+| `backend/` | API and bill-processing services (not yet started) |
+| `infrastructure/` | Infrastructure as code, deployment, CI/CD (not yet started) |
+
+npm workspaces are used. From the repository root:
+
+```bash
+npm install
+npm run dev
+```
