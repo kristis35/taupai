@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SaskaituAgentas.Api/SaskaituAgentas.Api.csproj" />
+  </Folder>
+</Solution>

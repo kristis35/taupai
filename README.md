@@ -185,8 +185,8 @@ Build the product if the 50 households show roughly:
 | Directory | Contents |
 |-----------|----------|
 | `frontend/` | Next.js (App Router), TypeScript, Tailwind CSS v4, shadcn/ui |
-| `backend/` | API and bill-processing services (not yet started) |
-| `infrastructure/` | Infrastructure as code, deployment, CI/CD (not yet started) |
+| `backend/` | ASP.NET Core Web API (.NET 10), EF Core + PostgreSQL. See `backend/README.md` |
+| `infrastructure/` | Local Docker Compose (PostgreSQL); later IaC, deployment, CI/CD |
 
 npm workspaces are used. From the repository root:
 

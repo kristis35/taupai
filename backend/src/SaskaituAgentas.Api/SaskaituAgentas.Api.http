@@ -1,0 +1,24 @@
+@host = http://localhost:5109
+
+GET {{host}}/health
+
+###
+
+# @name createHousehold
+POST {{host}}/api/households
+Content-Type: application/json
+
+{ "name": "Petraičių šeima", "email": "petraiciai@example.lt" }
+
+###
+
+@householdId = {{createHousehold.response.body.$.id}}
+
+POST {{host}}/api/households/{{householdId}}/contracts
+Content-Type: application/json
+
+{ "category": "Mobile", "providerName": "Telia", "planName": "Neribota", "monthlyCost": 22.00, "endDate": "2027-03-31" }
+
+###
+
+GET {{host}}/api/households/{{householdId}}/contracts
