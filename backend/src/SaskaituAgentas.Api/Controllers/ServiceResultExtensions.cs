@@ -11,6 +11,7 @@ internal static class ServiceResultExtensions
             ServiceError.NotFound => controller.Problem(result.Message, statusCode: StatusCodes.Status404NotFound),
             ServiceError.Conflict => controller.Problem(result.Message, statusCode: StatusCodes.Status409Conflict),
             ServiceError.Validation => controller.Problem(result.Message, statusCode: StatusCodes.Status400BadRequest),
+            ServiceError.Unauthorized => controller.Problem(result.Message, statusCode: StatusCodes.Status401Unauthorized),
             _ => controller.Problem(result.Message),
         };
 }

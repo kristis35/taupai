@@ -10,8 +10,11 @@ public class HouseholdConfiguration : IEntityTypeConfiguration<Household>
     {
         builder.HasKey(h => h.Id);
         builder.Property(h => h.Name).HasMaxLength(200).IsRequired();
-        builder.Property(h => h.Email).HasMaxLength(320).IsRequired();
-        builder.HasIndex(h => h.Email).IsUnique();
+
+        builder.HasMany(h => h.Members)
+            .WithOne(u => u.Household)
+            .HasForeignKey(u => u.HouseholdId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(h => h.Contracts)
             .WithOne(c => c.Household)

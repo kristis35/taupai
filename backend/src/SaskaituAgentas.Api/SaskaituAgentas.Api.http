@@ -1,20 +1,36 @@
 @host = http://localhost:5109
 
-GET {{host}}/health
+GET {{host}}/health/ready
 
 ###
 
-# @name createHousehold
-POST {{host}}/api/households
+# @name register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 
-{ "name": "Petraičių šeima", "email": "petraiciai@example.lt" }
+{ "email": "petraiciai@example.lt", "password": "slaptazodis123", "fullName": "Jonas Petraitis", "householdName": "Petraičių šeima" }
 
 ###
 
-@householdId = {{createHousehold.response.body.$.id}}
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "petraiciai@example.lt", "password": "slaptazodis123" }
+
+###
+
+@accessToken = {{login.response.body.$.accessToken}}
+@refreshToken = {{login.response.body.$.refreshToken}}
+@householdId = {{login.response.body.$.user.householdId}}
+
+GET {{host}}/api/auth/me
+Authorization: Bearer {{accessToken}}
+
+###
 
 POST {{host}}/api/households/{{householdId}}/contracts
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 { "category": "Mobile", "providerName": "Telia", "planName": "Neribota", "monthlyCost": 22.00, "endDate": "2027-03-31" }
@@ -22,3 +38,33 @@ Content-Type: application/json
 ###
 
 GET {{host}}/api/households/{{householdId}}/contracts
+Authorization: Bearer {{accessToken}}
+
+###
+
+POST {{host}}/api/auth/refresh
+Content-Type: application/json
+
+{ "refreshToken": "{{refreshToken}}" }
+
+###
+
+# Development aplinkoje atkūrimo nuoroda (su token) išvedama į API žurnalą.
+POST {{host}}/api/auth/forgot-password
+Content-Type: application/json
+
+{ "email": "petraiciai@example.lt" }
+
+###
+
+POST {{host}}/api/auth/reset-password
+Content-Type: application/json
+
+{ "token": "<žetonas iš nuorodos>", "newPassword": "naujasSlaptazodis123" }
+
+###
+
+POST {{host}}/api/auth/logout
+Content-Type: application/json
+
+{ "refreshToken": "{{refreshToken}}" }

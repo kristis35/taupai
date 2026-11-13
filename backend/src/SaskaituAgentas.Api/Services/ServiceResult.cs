@@ -6,6 +6,7 @@ public enum ServiceError
     NotFound,
     Conflict,
     Validation,
+    Unauthorized,
 }
 
 /// <summary>Paslaugos sluoksnio rezultatas, kurį kontroleris paverčia HTTP atsakymu.</summary>
