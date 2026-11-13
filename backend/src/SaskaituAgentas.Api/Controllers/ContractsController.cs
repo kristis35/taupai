@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SaskaituAgentas.Api.Auth;
 using SaskaituAgentas.Api.Dtos;
 using SaskaituAgentas.Api.Services;
 
 namespace SaskaituAgentas.Api.Controllers;
 
 [ApiController]
+[Authorize]
+[HouseholdAccess("householdId")]
 [Route("api/households/{householdId:guid}/contracts")]
 [Produces("application/json")]
 public class ContractsController(IContractService service) : ControllerBase
